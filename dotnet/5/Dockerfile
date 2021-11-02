@@ -12,6 +12,7 @@ RUN         apt update -y \
             && rm packages-microsoft-prod.deb \
             && apt update -y \
             && apt install -y aspnetcore-runtime-5.0 libgdiplus
+        	&& apt install -y dotnet-sdk-5.0 aspnetcore-runtime-5.0 libgdiplus
 
 USER        container
 ENV         USER=container HOME=/home/container
