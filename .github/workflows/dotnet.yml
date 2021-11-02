@@ -17,7 +17,6 @@ jobs:
       matrix:
         tag:
           - 3.1
-          - 4.8
           - 5
     steps:
       - uses: actions/checkout@v2
