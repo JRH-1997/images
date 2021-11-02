@@ -11,6 +11,7 @@ RUN         apt update -y \
             && dpkg -i packages-microsoft-prod.deb \
             && rm packages-microsoft-prod.deb \
             && apt update -y \
+            && apt install -y aspnetcore-runtime-4.8 libgdiplus \
             && apt install -y dotnet-sdk-4.8 aspnetcore-runtime-4.8 libgdiplus
 
 USER        container
