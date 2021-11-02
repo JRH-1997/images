@@ -36,4 +36,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/JRH-1997/yolks:dotnet_${{ matrix.tag }}
+            ghcr.io/jrh-1997/yolks:dotnet_${{ matrix.tag }}
