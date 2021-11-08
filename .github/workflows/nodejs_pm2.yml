@@ -8,6 +8,7 @@ on:
       - master
     paths:
       - nodejs/pm2/**
+      - .github/workflows/nodejs_pm2.yml
 jobs:
   push:
     name: "yolks:pm2_nodejs_${{ matrix.tag }}"
@@ -36,7 +37,7 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./nodejs/pm2
+          context: ./nodejs
           file: ./nodejs/pm2/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true

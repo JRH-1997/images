@@ -8,6 +8,7 @@ on:
       - master
     paths:
       - dotnet/**
+      - .github/workflows/dotnet.yml
 jobs:
   push:
     name: "yolks:dotnet_${{ matrix.tag }}"
