@@ -41,4 +41,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/parkervcp/yolks:pm2_nodejs_${{ matrix.tag }}
+            ghcr.io/jrh-1997/yolks:pm2_nodejs_${{ matrix.tag }}
