@@ -1,4 +1,4 @@
-name: build nodejs pm2
+name: build nodejs
 on:
   workflow_dispatch:
   schedule:
@@ -8,10 +8,10 @@ on:
       - master
     paths:
       - nodejs/pm2/**
-      - .github/workflows/nodejs_pm2.yml
+      - .github/workflows/nodejs.yml
 jobs:
   push:
-    name: "yolks:pm2_nodejs_${{ matrix.tag }}"
+    name: "yolks:nodejs_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -37,10 +37,10 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./nodejs/pm2
-          file: ./nodejs/pm2/${{ matrix.tag }}/Dockerfile
+          context: ./nodejs
+          file: ./nodejs/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64
           #,linux/arm64
           push: true
           tags: |
-            ghcr.io/jrh-1997/yolks:pm2_nodejs_${{ matrix.tag }}
+            ghcr.io/jrh-1997/yolks:nodejs_${{ matrix.tag }}
