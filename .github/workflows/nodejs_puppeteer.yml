@@ -2,13 +2,12 @@ name: build nodejs puppeteer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 1"
+    - cron: "0 0 1 * *"
   push:
     branches:
       - master
     paths:
       - nodejs/puppeteer/**
-      - .github/workflows/nodejs_puppeteer.yml
 jobs:
   push:
     name: "yolks:puppeteer_nodejs_${{ matrix.tag }}"
