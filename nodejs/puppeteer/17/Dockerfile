@@ -10,7 +10,7 @@ RUN         apt update \
             && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
             --no-install-recommends \
             && npm i -g puppeteer \
-    		&& rm -rf /var/lib/apt/lists/*
+    		&& rm -rf /var/lib/apt/lists/* \
             && useradd -m -d /home/container container
 
 USER        container
