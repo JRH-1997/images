@@ -7,7 +7,7 @@ RUN         apt update \
     		&& wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     		&& sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
             && npm -g install npm@latest \
-            && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+            && apt install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
             --no-install-recommends \
             && npm i -g puppeteer \
     		&& rm -rf /var/lib/apt/lists/* \
