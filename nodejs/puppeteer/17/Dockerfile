@@ -16,8 +16,7 @@ RUN         apt-get update \
             --no-install-recommends \
             && rm -rf /var/lib/apt/lists/*
 
-RUN         npm init -y &&  \
-            npm i puppeteer \
+RUN         npm i -g puppeteer \
             && chown -R container:container /home/container \
             && chmod 4755 /home/container
 
