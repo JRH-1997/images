@@ -68,4 +68,4 @@ RUN echo "#!/bin/bash" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
 ENV INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
 COPY        ./../entrypoint.sh /entrypoint.sh
-CMD [ "/opt/sonatype/nexus/bin/nexus", "run"]
+CMD         [ "/bin/bash", "/entrypoint.sh" ]
