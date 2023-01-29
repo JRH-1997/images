@@ -50,7 +50,7 @@ RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
     && tar -xvf nexus-${NEXUS_VERSION}-unix.tar.gz \
     && rm -f nexus-${NEXUS_VERSION}-unix.tar.gz nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
     && mv nexus-${NEXUS_VERSION} $NEXUS_HOME \
-    && chown -R nexus:nexus ${SONATYPE_WORK} \
+    && chown -R container:container ${SONATYPE_WORK} \
     && mv ${SONATYPE_WORK}/nexus3 ${NEXUS_DATA} \
     && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3
 
