@@ -37,12 +37,12 @@ RUN microdnf update -y \
     java-1.8.0-openjdk-headless tar procps shadow-utils gzip \
     && microdnf clean all \
     && groupadd --gid 200 -r nexus \
-    && useradd -d ${SONATYPE_DIR}/nexus -m nexus \
+    && useradd --uid 200 -r nexus -g nexus -s /bin/false -d /opt/sonatype/nexus -c 'Nexus Repository Manager user' \
     && useradd -d /home/container -m container
 
 USER nexus
 ENV USER=container HOME=/home/container
-WORKDIR /home/container
+WORKDIR ${SONATYPE_DIR}
 
 # Download nexus & setup directories
 RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
@@ -67,6 +67,7 @@ RUN echo "#!/bin/bash" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
 #RUN microdnf remove -y tar gzip shadow-utils
 
 USER container
+WORKDIR /home/container
 
 ENV INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
