@@ -44,12 +44,12 @@ ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 # Download nexus & setup directories
-RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
-    && echo "${NEXUS_DOWNLOAD_SHA256_HASH} nexus-${NEXUS_VERSION}-unix.tar.gz" > nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
-    && sha256sum -c nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
-    && tar -xvf nexus-${NEXUS_VERSION}-unix.tar.gz \
-    && rm -f nexus-${NEXUS_VERSION}-unix.tar.gz nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
-    && mv nexus-${NEXUS_VERSION} $NEXUS_HOME \
+RUN curl -L ${NEXUS_DOWNLOAD_URL} --output /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz \
+    && echo "${NEXUS_DOWNLOAD_SHA256_HASH} nexus-${NEXUS_VERSION}-unix.tar.gz" > /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
+    && sha256sum -c /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
+    && tar -xvf /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz \
+    && rm -f /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz /home/container/nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
+    && mv /home/container/nexus-${NEXUS_VERSION} $NEXUS_HOME \
     && chown -R container:container ${SONATYPE_WORK} \
     && mv ${SONATYPE_WORK}/nexus3 ${NEXUS_DATA} \
     && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3
