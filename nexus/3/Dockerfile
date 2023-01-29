@@ -24,7 +24,7 @@ ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSI
 ARG NEXUS_DOWNLOAD_SHA256_HASH=36f393fff385f10ba2a1fbea64050eb7005ebae8161335aa56a4c593b3001830
 
 # configure nexus runtime
-ENV SONATYPE_DIR=/opt/sonatype
+ENV SONATYPE_DIR=/home/container
 ENV NEXUS_HOME=${SONATYPE_DIR}/nexus \
     NEXUS_DATA=${SONATYPE_DIR}/nexus-data \
     NEXUS_CONTEXT='' \
@@ -36,13 +36,12 @@ RUN microdnf update -y \
     && microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y \
     java-1.8.0-openjdk-headless tar procps shadow-utils gzip \
     && microdnf clean all \
-    && groupadd --gid 200 -r nexus \
-    && useradd --uid 200 -r nexus -g nexus -s /bin/false -d /opt/sonatype/nexus -c 'Nexus Repository Manager user' \
-    && useradd -d /home/container -m container
+    && groupadd --gid 200 -r container \
+    && useradd --uid 200 -r container -g container -s /bin/false -d /home/container -c 'Nexus Repository Manager user'
 
-USER nexus
-ENV USER=container HOME=/home/container
-WORKDIR ${SONATYPE_DIR}
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
 
 # Download nexus & setup directories
 RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
@@ -51,7 +50,7 @@ RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
     && tar -xvf nexus-${NEXUS_VERSION}-unix.tar.gz \
     && rm -f nexus-${NEXUS_VERSION}-unix.tar.gz nexus-${NEXUS_VERSION}-unix.tar.gz.sha256 \
     && mv nexus-${NEXUS_VERSION} $NEXUS_HOME \
-    && chown -R nexus:nexus ${SONATYPE_WORK} \
+    && chown -R container:container ${SONATYPE_WORK} \
     && mv ${SONATYPE_WORK}/nexus3 ${NEXUS_DATA} \
     && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3
 
@@ -59,15 +58,12 @@ RUN curl -L ${NEXUS_DOWNLOAD_URL} --output nexus-${NEXUS_VERSION}-unix.tar.gz \
 RUN sed -i '/^-Xms/d;/^-Xmx/d;/^-XX:MaxDirectMemorySize/d' $NEXUS_HOME/bin/nexus.vmoptions
 
 RUN echo "#!/bin/bash" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
-    && echo "cd /opt/sonatype/nexus" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
+    && echo "cd /home/container/nexus" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
     && echo "exec ./bin/nexus run" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
     && chmod a+x ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
     && sed -e '/^nexus-context/ s:$:${NEXUS_CONTEXT}:' -i ${NEXUS_HOME}/etc/nexus-default.properties
 
 #RUN microdnf remove -y tar gzip shadow-utils
-
-USER container
-WORKDIR /home/container
 
 ENV INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
