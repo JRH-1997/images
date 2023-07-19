@@ -1,5 +1,4 @@
-FROM        node:18-buster-slim
-
+FROM        node:18
 LABEL       author="Michael Parker" maintainer="parker@pterodactyl.io"
 
 RUN         apt update \
