@@ -25,7 +25,7 @@ WORKDIR     /home/container
 RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
     	&& (node -e "require('child_process').execSync(require('puppeteer').executablePath() + ' --credits', {stdio: 'inherit'})" > THIRD_PARTY_NOTICES) \
 	 	&& cd node_modules \
-	  	&& cd puppeteer/.local-chromium \
+	  	&& sudo cd puppeteer/.local-chromium \
   		&& ls \
   		&& cd linux-* \
   		&& ls \
