@@ -25,6 +25,15 @@ RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
 # export CHROME_DEVEL_SANDBOX env variable
 RUN 	ls
 RUN 	cd node_modules/puppeteer/.local-chromium/linux-*/chrome-linux/ \
+		ls \
+	  	cd puppeteer \
+  		ls \
+  		cd .local-chromium \
+  		ls \
+  		cd linux-* \
+  		ls \
+  		cd chrome-linux \
+  		ls \  
 		chown container:container chrome_sandbox \
   		chmod 4755 chrome_sandbox \
   		cp -p chrome_sandbox /home/container/sbin/chrome-devel-sandbox
