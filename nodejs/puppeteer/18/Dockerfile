@@ -17,12 +17,13 @@ ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 # Install @puppeteer/browsers, puppeteer and puppeteer-core into /home/pptruser/node_modules.
-RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
-    && (node -e "require('child_process').execSync(require('puppeteer').executablePath() + ' --credits', {stdio: 'inherit'})" > THIRD_PARTY_NOTICES) \
 
 # cd to the downloaded instance
 		# copy sandbox executable to a shared location
 # export CHROME_DEVEL_SANDBOX env variable
+
+RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
+    	&& (node -e "require('child_process').execSync(require('puppeteer').executablePath() + ' --credits', {stdio: 'inherit'})" > THIRD_PARTY_NOTICES) \
 	 	ls \
 	 	cd node_modulea \
 		ls \
