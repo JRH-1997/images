@@ -19,6 +19,15 @@ WORKDIR     /home/container
 # Install @puppeteer/browsers, puppeteer and puppeteer-core into /home/pptruser/node_modules.
 RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
     && (node -e "require('child_process').execSync(require('puppeteer').executablePath() + ' --credits', {stdio: 'inherit'})" > THIRD_PARTY_NOTICES)
-	
+
+# cd to the downloaded instance
+cd /home/container/node_modules/puppeteer/.local-chromium/linux-*/chrome-linux/
+sudo chown container:container chrome_sandbox
+sudo chmod 4755 chrome_sandbox
+# copy sandbox executable to a shared location
+sudo cp -p chrome_sandbox /home/container/sbin/chrome-devel-sandbox
+# export CHROME_DEVEL_SANDBOX env variable
+ENV CHROME_DEVEL_SANDBOX=/home/container/sbin/chrome-devel-sandbox
+ 
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
