@@ -23,10 +23,11 @@ RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
 # cd to the downloaded instance
 		# copy sandbox executable to a shared location
 # export CHROME_DEVEL_SANDBOX env variable
-RUN 	cd /home/container/node_modules/puppeteer/.local-chromium/linux-*/chrome-linux/ \
-		sudo chown container:container chrome_sandbox \
-  		sudo chmod 4755 chrome_sandbox \
-  		sudo cp -p chrome_sandbox /home/container/sbin/chrome-devel-sandbox
+RUN 	ls
+RUN 	cd node_modules/puppeteer/.local-chromium/linux-*/chrome-linux/ \
+		chown container:container chrome_sandbox \
+  		chmod 4755 chrome_sandbox \
+  		cp -p chrome_sandbox /home/container/sbin/chrome-devel-sandbox
 
 ENV 	CHROME_DEVEL_SANDBOX=/home/container/sbin/chrome-devel-sandbox
  
