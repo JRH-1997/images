@@ -24,7 +24,7 @@ RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
 		# copy sandbox executable to a shared location
 # export CHROME_DEVEL_SANDBOX env variable
 RUN 	ls
-RUN 	cd node_modules/puppeteer/.local-chromium/linux-*/chrome-linux/ \
+RUN 	cd node_modulea \
 		ls \
 	  	cd puppeteer \
   		ls \
