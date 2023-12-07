@@ -25,7 +25,7 @@ WORKDIR     /home/container
 RUN npm i @puppeteer/browsers puppeteer puppeteer-core \
     	&& (node -e "require('child_process').execSync(require('puppeteer').executablePath() + ' --credits', {stdio: 'inherit'})" > THIRD_PARTY_NOTICES) \
 	 	&& ls \
-	 	&& cd node_modulea \
+	 	&& cd node_modules \
 		&& ls \
 	  	&& cd puppeteer \
   		&& ls \
