@@ -12,7 +12,7 @@ on:
 jobs:
   push:
     name: "yolks:pm2_nodejs_${{ matrix.tag }}"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
