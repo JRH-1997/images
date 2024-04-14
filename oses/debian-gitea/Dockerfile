@@ -4,11 +4,8 @@ LABEL author="Izthar" maintainer=""
 
 ENV DEBIAN_FRONTEND noninteractive
 
-
-RUN /bin/sh -c addgroup -S -g 1000 git && adduser -S -H -D -h /home/container/ -s /bin/bash -u 1000 -G git git && echo "git:*" | chpasswd -e #buildkit
-
-## add container user
-#RUN useradd -m -d /home/container -s /bin/bash git
+# add container user
+RUN          useradd -m -d /home/container -s /bin/bash git
 
 RUN ln -s /home/container/ /nonexistent
 
