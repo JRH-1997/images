@@ -4,7 +4,6 @@ LABEL author="Izthar" maintainer=""
 
 ENV DEBIAN_FRONTEND noninteractive
 
-EXPOSE map[22/tcp:{} 3000/tcp:{}]
 
 RUN /bin/sh -c addgroup -S -g 1000 git && adduser -S -H -D -h /home/container/ -s /bin/bash -u 1000 -G git git && echo "git:*" | chpasswd -e #buildkit
 
@@ -16,14 +15,14 @@ RUN ln -s /home/container/ /nonexistent
 ENV USER=git
 ENV HOME=/home/container
 
-## update base packages
-RUN apt update \
- && apt upgrade -y
+## Update base packages
+RUN          apt update \
+             && apt upgrade -y
 
-## install dependencies
-RUN apt install -y gcc g++ libgcc1 lib32gcc1 libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat telnet libatomic1 libsdl1.2debian libsdl2-2.0-0 \
-    libfontconfig libicu63 icu-devtools libunwind8 libssl-dev sqlite3 libsqlite3-dev libmariadbclient-dev libduktape203 locales ffmpeg gnupg2 apt-transport-https software-properties-common ca-certificates tzdata \
-    liblua5.3 libz-dev rapidjson-dev
+## Install dependencies
+RUN          apt install -y gcc g++ libgcc-12-dev libc++-dev gdb libc6 git wget curl tar zip unzip binutils xz-utils liblzo2-2 cabextract iproute2 net-tools netcat-traditional telnet libatomic1 libsdl1.2debian libsdl2-2.0-0 \
+             libfontconfig1 icu-devtools libunwind8 libssl-dev sqlite3 libsqlite3-dev libmariadb-dev-compat libduktape207 locales ffmpeg gnupg2 apt-transport-https software-properties-common ca-certificates \
+             liblua5.3-0 libz3-dev libzadc4 rapidjson-dev tzdata libevent-dev libzip4 libprotobuf32 libfluidsynth3 procps libstdc++6 tini
 
 ## configure locale
 RUN update-locale lang=en_US.UTF-8 \
