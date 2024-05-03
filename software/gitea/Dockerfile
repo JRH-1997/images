@@ -1,4 +1,4 @@
-FROM        --platform=$BUILDPLATFORM alpine:latest
+FROM        ghcr.io/parkervcp/yolks:debian
 
 LABEL authors="Querijn"
 
